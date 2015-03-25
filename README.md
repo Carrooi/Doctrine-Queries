@@ -1,5 +1,8 @@
 # Carrooi/DoctrineQueries
 
+[![Build Status](https://img.shields.io/travis/Carrooi/Doctrine-Queries.svg?style=flat-square)](https://travis-ci.org/Carrooi/Doctrine-Queries)
+[![Donate](https://img.shields.io/badge/donate-PayPal-brightgreen.svg?style=flat-square)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F3SNC38XAUP56)
+
 Builder for doctrine query builders based on kdyby/doctrine
 
 ## Installation
