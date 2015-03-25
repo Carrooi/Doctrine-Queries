@@ -75,13 +75,23 @@ class QueryObjectTest extends TestCase
 	{
 		$query = new Query($this->repository);
 
+		$query->trySelect('a');
+
+		Assert::same('SELECT a FROM App\Entity a', $query->getQueryBuilder()->getDQL());
+	}
+
+
+	public function testTrySelect_partial()
+	{
+		$query = new Query($this->repository);
+
 		$query->trySelect('a', ['name', 'title']);
 
 		Assert::same('SELECT PARTIAL a.{id,name,title} FROM App\Entity a', $query->getQueryBuilder()->getDQL());
 	}
 
 
-	public function testTrySelect_moreCalls()
+	public function testTrySelect_partial_moreCalls()
 	{
 		$query = new Query($this->repository);
 
@@ -96,13 +106,23 @@ class QueryObjectTest extends TestCase
 	{
 		$query = new Query($this->repository);
 
+		$query->tryDistinctSelect('a');
+
+		Assert::same('SELECT DISTINCT a FROM App\Entity a', $query->getQueryBuilder()->getDQL());
+	}
+
+
+	public function testTryDistinctSelect_partial()
+	{
+		$query = new Query($this->repository);
+
 		$query->tryDistinctSelect('a', ['name']);
 
 		Assert::same('SELECT DISTINCT PARTIAL a.{id,name} FROM App\Entity a', $query->getQueryBuilder()->getDQL());
 	}
 
 
-	public function testTryDistinctSelect_moreCalls()
+	public function testTryDistinctSelect_partial_moreCalls()
 	{
 		$query = new Query($this->repository);
 

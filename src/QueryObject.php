@@ -98,9 +98,19 @@ abstract class QueryObject extends BaseQueryObject
 			$selects = [];
 			foreach ($this->selects as $alias => $data) {
 				$columns = array_unique($data['columns']);
-				$columns = implode(',', $columns);
+				$distinct = $data['distinct'] ? 'DISTINCT ' : '';
 
-				$selects[] = ($data['distinct'] ? 'DISTINCT ' : ''). 'PARTIAL '. $alias. '.{'. $columns. '}';
+				if (empty($columns)) {
+					$selects[] = $distinct. $alias;
+				} else {
+					if (!in_array('id', $columns)) {
+						array_unshift($columns, 'id');
+					}
+
+					$columns = implode(',', $columns);
+
+					$selects[] = $distinct. 'PARTIAL '. $alias. '.{'. $columns. '}';
+				}
 			}
 
 			$qb->select(implode(', ', $selects));
@@ -142,7 +152,7 @@ abstract class QueryObject extends BaseQueryObject
 		if (!isset($this->selects[$alias])) {
 			$this->selects[$alias] = [
 				'distinct' => $distinct,
-				'columns' => ['id'],
+				'columns' => [],
 			];
 		}
 
@@ -157,7 +167,7 @@ abstract class QueryObject extends BaseQueryObject
 	 * @param array $columns
 	 * @return $this
 	 */
-	public function trySelect($alias, array $columns)
+	public function trySelect($alias, array $columns = [])
 	{
 		return $this->trySilentSelect($alias, $columns, false);
 	}
@@ -168,7 +178,7 @@ abstract class QueryObject extends BaseQueryObject
 	 * @param array $columns
 	 * @return $this
 	 */
-	public function tryDistinctSelect($alias, array $columns)
+	public function tryDistinctSelect($alias, array $columns = [])
 	{
 		return $this->trySilentSelect($alias, $columns, true);
 	}
