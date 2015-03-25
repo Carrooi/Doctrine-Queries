@@ -141,5 +141,8 @@ You can also use `tryLeftJoin` method.
 
 ## Changelog
 
+* 1.0.1
+	+ Do not rewrite existing joins
+
 * 1.0.0
 	+ Initial version
