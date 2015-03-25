@@ -167,7 +167,7 @@ abstract class QueryObject extends BaseQueryObject
 	 * @param array $columns
 	 * @return $this
 	 */
-	public function trySelect($alias, array $columns = [])
+	protected function trySelect($alias, array $columns = [])
 	{
 		return $this->trySilentSelect($alias, $columns, false);
 	}
@@ -178,7 +178,7 @@ abstract class QueryObject extends BaseQueryObject
 	 * @param array $columns
 	 * @return $this
 	 */
-	public function tryDistinctSelect($alias, array $columns = [])
+	protected function tryDistinctSelect($alias, array $columns = [])
 	{
 		return $this->trySilentSelect($alias, $columns, true);
 	}
