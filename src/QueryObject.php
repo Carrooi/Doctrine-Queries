@@ -209,7 +209,7 @@ abstract class QueryObject extends BaseQueryObject
 		$name = md5($type. $join. $alias);
 
 		if (array_key_exists($name, $this->joins)) {
-			unset($this->joins[$name]);
+			return $this;
 		}
 
 		$this->joins[$name] = [
