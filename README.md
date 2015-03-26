@@ -253,6 +253,10 @@ $query->createNestedTreeSearchCondition($entities, 'entityAlias', null, null, [
 
 ## Changelog
 
+* 1.1.0
+	+ Add field function for DQL
+	+ Add TNestedTreeQuery trait for searching in nested trees
+
 * 1.0.1
 	+ Do not rewrite existing joins
 
