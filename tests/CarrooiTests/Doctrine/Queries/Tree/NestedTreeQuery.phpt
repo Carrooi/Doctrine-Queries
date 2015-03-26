@@ -110,14 +110,14 @@ class NestedTreeQueryTest extends TestCase
 			$query->addParameters($qb, $condition->getParameters());
 		});
 
-		$dql = 'SELECT a FROM App\Entity a WHERE a.id = :id_6 OR (a.level > :level_6 AND a.id > :left_6 AND a.id < :right_6) OR (a.level < :level_6 AND a.root = :root_6 AND a.left < :id_6 AND a.right > :id_6)';
+		$dql = 'SELECT a FROM App\Entity a WHERE a.id = :id_a_6 OR (a.level > :level_a_6 AND a.id > :left_a_6 AND a.id < :right_a_6) OR (a.level < :level_a_6 AND a.root = :root_a_6 AND a.left < :id_a_6 AND a.right > :id_a_6)';
 		$qb = $query->getQueryBuilder();
 
-		Assert::same(6, $qb->getParameter('id_6')->getValue());
-		Assert::same(1, $qb->getParameter('root_6')->getValue());
-		Assert::same(3, $qb->getParameter('level_6')->getValue());
-		Assert::same(7, $qb->getParameter('left_6')->getValue());
-		Assert::same(23, $qb->getParameter('right_6')->getValue());
+		Assert::same(6, $qb->getParameter('id_a_6')->getValue());
+		Assert::same(1, $qb->getParameter('root_a_6')->getValue());
+		Assert::same(3, $qb->getParameter('level_a_6')->getValue());
+		Assert::same(7, $qb->getParameter('left_a_6')->getValue());
+		Assert::same(23, $qb->getParameter('right_a_6')->getValue());
 
 		Assert::same($dql, $qb->getDQL());
 	}
@@ -140,14 +140,14 @@ class NestedTreeQueryTest extends TestCase
 			$query->addParameters($qb, $condition->getParameters());
 		});
 
-		$dql = 'SELECT a FROM App\Entity a WHERE a._id_ = :id_6 OR (a._level_ > :level_6 AND a._id_ > :left_6 AND a._id_ < :right_6) OR (a._level_ < :level_6 AND a._root_ = :root_6 AND a._left_ < :id_6 AND a._right_ > :id_6)';
+		$dql = 'SELECT a FROM App\Entity a WHERE a._id_ = :id_a_6 OR (a._level_ > :level_a_6 AND a._id_ > :left_a_6 AND a._id_ < :right_a_6) OR (a._level_ < :level_a_6 AND a._root_ = :root_a_6 AND a._left_ < :id_a_6 AND a._right_ > :id_a_6)';
 		$qb = $query->getQueryBuilder();
 
-		Assert::same(6, $qb->getParameter('id_6')->getValue());
-		Assert::same(1, $qb->getParameter('root_6')->getValue());
-		Assert::same(3, $qb->getParameter('level_6')->getValue());
-		Assert::same(7, $qb->getParameter('left_6')->getValue());
-		Assert::same(23, $qb->getParameter('right_6')->getValue());
+		Assert::same(6, $qb->getParameter('id_a_6')->getValue());
+		Assert::same(1, $qb->getParameter('root_a_6')->getValue());
+		Assert::same(3, $qb->getParameter('level_a_6')->getValue());
+		Assert::same(7, $qb->getParameter('left_a_6')->getValue());
+		Assert::same(23, $qb->getParameter('right_a_6')->getValue());
 
 		Assert::same($dql, $qb->getDQL());
 	}
@@ -164,10 +164,10 @@ class NestedTreeQueryTest extends TestCase
 			$query->addParameters($qb, $condition->getParameters());
 		});
 
-		$dql = 'SELECT a FROM App\Entity a WHERE a.id = :id_6';
+		$dql = 'SELECT a FROM App\Entity a WHERE a.id = :id_a_6';
 		$qb = $query->getQueryBuilder();
 
-		Assert::same(6, $qb->getParameter('id_6')->getValue());
+		Assert::same(6, $qb->getParameter('id_a_6')->getValue());
 
 		Assert::same($dql, $qb->getDQL());
 	}
@@ -184,10 +184,10 @@ class NestedTreeQueryTest extends TestCase
 			$query->addParameters($qb, $condition->getParameters());
 		});
 
-		$dql = 'SELECT a FROM App\Entity a WHERE a.id = :id_6 OR a.id = :id_52';
+		$dql = 'SELECT a FROM App\Entity a WHERE a.id = :id_a_6 OR a.id = :id_a_52';
 		$qb = $query->getQueryBuilder();
 
-		Assert::same(6, $qb->getParameter('id_6')->getValue());
+		Assert::same(6, $qb->getParameter('id_a_6')->getValue());
 
 		Assert::same($dql, $qb->getDQL());
 	}
@@ -204,10 +204,10 @@ class NestedTreeQueryTest extends TestCase
 			$query->addParameters($qb, $condition->getParameters());
 		});
 
-		$dql = 'SELECT a FROM App\Entity a WHERE a.id = :id_6 AND a.id = :id_52';
+		$dql = 'SELECT a FROM App\Entity a WHERE a.id = :id_a_6 AND a.id = :id_a_52';
 		$qb = $query->getQueryBuilder();
 
-		Assert::same(6, $qb->getParameter('id_6')->getValue());
+		Assert::same(6, $qb->getParameter('id_a_6')->getValue());
 
 		Assert::same($dql, $qb->getDQL());
 	}
@@ -224,12 +224,12 @@ class NestedTreeQueryTest extends TestCase
 			$query->addParameters($qb, $condition->getParameters());
 		});
 
-		$dql = 'SELECT a FROM App\Entity a WHERE a.level > :level_6 AND a.id > :left_6 AND a.id < :right_6';
+		$dql = 'SELECT a FROM App\Entity a WHERE a.level > :level_a_6 AND a.id > :left_a_6 AND a.id < :right_a_6';
 		$qb = $query->getQueryBuilder();
 
-		Assert::same(3, $qb->getParameter('level_6')->getValue());
-		Assert::same(7, $qb->getParameter('left_6')->getValue());
-		Assert::same(23, $qb->getParameter('right_6')->getValue());
+		Assert::same(3, $qb->getParameter('level_a_6')->getValue());
+		Assert::same(7, $qb->getParameter('left_a_6')->getValue());
+		Assert::same(23, $qb->getParameter('right_a_6')->getValue());
 
 		Assert::same($dql, $qb->getDQL());
 	}
@@ -246,12 +246,12 @@ class NestedTreeQueryTest extends TestCase
 			$query->addParameters($qb, $condition->getParameters());
 		});
 
-		$dql = 'SELECT a FROM App\Entity a WHERE a.level < :level_6 AND a.root = :root_6 AND a.left < :id_6 AND a.right > :id_6';
+		$dql = 'SELECT a FROM App\Entity a WHERE a.level < :level_a_6 AND a.root = :root_a_6 AND a.left < :id_a_6 AND a.right > :id_a_6';
 		$qb = $query->getQueryBuilder();
 
-		Assert::same(6, $qb->getParameter('id_6')->getValue());
-		Assert::same(1, $qb->getParameter('root_6')->getValue());
-		Assert::same(3, $qb->getParameter('level_6')->getValue());
+		Assert::same(6, $qb->getParameter('id_a_6')->getValue());
+		Assert::same(1, $qb->getParameter('root_a_6')->getValue());
+		Assert::same(3, $qb->getParameter('level_a_6')->getValue());
 
 		Assert::same($dql, $qb->getDQL());
 	}

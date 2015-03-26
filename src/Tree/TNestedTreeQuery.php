@@ -49,9 +49,9 @@ trait TNestedTreeQuery
 		$id = $metadata->getFieldValue($entity, $mapping['id']);
 
 		return [
-			'condition' => "$alias.$mapping[id] = :id_$id",
+			'condition' => "$alias.$mapping[id] = :id_{$alias}_$id",
 			'parameters' => [
-				"id_$id" => $id,
+				"id_{$alias}_$id" => $id,
 			],
 		];
 	}
@@ -69,11 +69,11 @@ trait TNestedTreeQuery
 		$id = $metadata->getFieldValue($entity, $mapping['id']);
 
 		return [
-			'condition' => "$alias.$mapping[level] > :level_$id AND $alias.$mapping[id] > :left_$id AND $alias.$mapping[id] < :right_$id",
+			'condition' => "$alias.$mapping[level] > :level_{$alias}_$id AND $alias.$mapping[id] > :left_{$alias}_$id AND $alias.$mapping[id] < :right_{$alias}_$id",
 			'parameters' => [
-				"level_$id" => $metadata->getFieldValue($entity, $mapping['level']),
-				"left_$id" => $metadata->getFieldValue($entity, $mapping['left']),
-				"right_$id" => $metadata->getFieldValue($entity, $mapping['right']),
+				"level_{$alias}_$id" => $metadata->getFieldValue($entity, $mapping['level']),
+				"left_{$alias}_$id" => $metadata->getFieldValue($entity, $mapping['left']),
+				"right_{$alias}_$id" => $metadata->getFieldValue($entity, $mapping['right']),
 			],
 		];
 	}
@@ -91,11 +91,11 @@ trait TNestedTreeQuery
 		$id = $metadata->getFieldValue($entity, $mapping['id']);
 
 		return [
-			'condition' => "$alias.$mapping[level] < :level_$id AND $alias.$mapping[root] = :root_$id AND $alias.$mapping[left] < :id_$id AND $alias.$mapping[right] > :id_$id",
+			'condition' => "$alias.$mapping[level] < :level_{$alias}_$id AND $alias.$mapping[root] = :root_{$alias}_$id AND $alias.$mapping[left] < :id_{$alias}_$id AND $alias.$mapping[right] > :id_{$alias}_$id",
 			'parameters' => [
-				"id_$id" => $id,
-				"root_$id" => $metadata->getFieldValue($entity, $mapping['root']),
-				"level_$id" => $metadata->getFieldValue($entity, $mapping['level']),
+				"id_{$alias}_$id" => $id,
+				"root_{$alias}_$id" => $metadata->getFieldValue($entity, $mapping['root']),
+				"level_{$alias}_$id" => $metadata->getFieldValue($entity, $mapping['level']),
 			],
 		];
 	}
