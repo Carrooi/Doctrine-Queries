@@ -183,7 +183,7 @@ $query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CO
 ```php
 use Carrooi\Doctrine\Queries\Tree\SearchType;
 
-$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_OR, SearchType::SEARCH_EVERYWHERE);
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', null, SearchType::SEARCH_EVERYWHERE);
 ```
 
 **Search only for same**
@@ -191,7 +191,7 @@ $query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CO
 ```php
 use Carrooi\Doctrine\Queries\Tree\SearchType;
 
-$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_OR, SearchType::SEARCH_FOR_SAME);
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', null, SearchType::SEARCH_FOR_SAME);
 ```
 
 **Search only in parents**
@@ -199,7 +199,7 @@ $query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CO
 ```php
 use Carrooi\Doctrine\Queries\Tree\SearchType;
 
-$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_OR, SearchType::SEARCH_IN_PARENTS);
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', null, SearchType::SEARCH_IN_PARENTS);
 ```
 
 **Search only in children**
@@ -207,7 +207,7 @@ $query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CO
 ```php
 use Carrooi\Doctrine\Queries\Tree\SearchType;
 
-$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_OR, SearchType::SEARCH_IN_CHILDREN);
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', null, SearchType::SEARCH_IN_CHILDREN);
 ```
 
 **Combined searching**
@@ -215,7 +215,7 @@ $query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CO
 ```php
 use Carrooi\Doctrine\Queries\Tree\SearchType;
 
-$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_OR, SearchType::SEARCH_IN_PARENTS | SearchType::SEARCH_IN_CHILDREN);
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', null, SearchType::SEARCH_IN_PARENTS | SearchType::SEARCH_IN_CHILDREN);
 ```
 
 **Custom column names**
@@ -233,7 +233,7 @@ But if you need, you can use custom names:
 ```php
 use Carrooi\Doctrine\Queries\Tree\SearchType;
 
-$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_OR, SearchType::SEARCH_EVERYWHERE, [
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', null, null, [
 	'id' => 'id',
 	'level' => 'lvl',
 	'root' => 'root',

@@ -127,7 +127,7 @@ class NestedTreeQueryTest extends TestCase
 	{
 		$query = new NestedTreeQueryMock($this->repository);
 
-		$condition = $query->createNestedTreeSearchCondition($this->entities['mapping'], 'a', SearchType::CONDITION_OR, SearchType::SEARCH_EVERYWHERE, [
+		$condition = $query->createNestedTreeSearchCondition($this->entities['mapping'], 'a', null, SearchType::SEARCH_EVERYWHERE, [
 			'id' => '_id_',
 			'root' => '_root_',
 			'level' => '_level_',
@@ -157,7 +157,7 @@ class NestedTreeQueryTest extends TestCase
 	{
 		$query = new NestedTreeQueryMock($this->repository);
 
-		$condition = $query->createNestedTreeSearchCondition($this->entities['simple'], 'a', SearchType::CONDITION_OR, SearchType::SEARCH_FOR_SAME);
+		$condition = $query->createNestedTreeSearchCondition($this->entities['simple'], 'a', null, SearchType::SEARCH_FOR_SAME);
 
 		$query->addFilter(function(QueryBuilder $qb) use ($query, $condition) {
 			$qb->andWhere($condition->getCondition());
@@ -177,7 +177,7 @@ class NestedTreeQueryTest extends TestCase
 	{
 		$query = new NestedTreeQueryMock($this->repository);
 
-		$condition = $query->createNestedTreeSearchCondition($this->entities['many'], 'a', SearchType::CONDITION_OR, SearchType::SEARCH_FOR_SAME);
+		$condition = $query->createNestedTreeSearchCondition($this->entities['many'], 'a', null, SearchType::SEARCH_FOR_SAME);
 
 		$query->addFilter(function(QueryBuilder $qb) use ($query, $condition) {
 			$qb->andWhere($condition->getCondition());
@@ -217,7 +217,7 @@ class NestedTreeQueryTest extends TestCase
 	{
 		$query = new NestedTreeQueryMock($this->repository);
 
-		$condition = $query->createNestedTreeSearchCondition($this->entities['simple'], 'a', SearchType::CONDITION_OR, SearchType::SEARCH_IN_PARENTS);
+		$condition = $query->createNestedTreeSearchCondition($this->entities['simple'], 'a', null, SearchType::SEARCH_IN_PARENTS);
 
 		$query->addFilter(function(QueryBuilder $qb) use ($query, $condition) {
 			$qb->andWhere($condition->getCondition());
@@ -239,7 +239,7 @@ class NestedTreeQueryTest extends TestCase
 	{
 		$query = new NestedTreeQueryMock($this->repository);
 
-		$condition = $query->createNestedTreeSearchCondition($this->entities['simple'], 'a', SearchType::CONDITION_OR, SearchType::SEARCH_IN_CHILDREN);
+		$condition = $query->createNestedTreeSearchCondition($this->entities['simple'], 'a', null, SearchType::SEARCH_IN_CHILDREN);
 
 		$query->addFilter(function(QueryBuilder $qb) use ($query, $condition) {
 			$qb->andWhere($condition->getCondition());

@@ -152,6 +152,14 @@ trait TNestedTreeQuery
 	 */
 	protected function createNestedTreeSearchCondition(array $entities, $alias, $conditionType = SearchType::CONDITION_OR, $type = SearchType::SEARCH_EVERYWHERE, array $mapping = [])
 	{
+		if ($conditionType === null) {
+			$conditionType = SearchType::CONDITION_OR;
+		}
+
+		if ($type === null) {
+			$type = SearchType::SEARCH_EVERYWHERE;
+		}
+
 		$mapping = $this->getMappingConfiguration($mapping);
 
 		$condition = [
