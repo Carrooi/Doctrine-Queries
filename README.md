@@ -107,6 +107,7 @@ class UserQuery extends Carrooi\Doctrine\Queries\QueryObject
 
 You can also use classic column selects without partials. That can be useful for example for array hydration.
 
+```php
 class UserQuery extends Carrooi\Doctrine\Queries\QueryObject
 {
 
@@ -125,6 +126,9 @@ class UserQuery extends Carrooi\Doctrine\Queries\QueryObject
 	}
 
 }
+```
+
+**DQL:** `SELECT u.nick AS nickAlias, PARTIAL u.{id,email} FROM ...`
 
 ### Joins
 
