@@ -40,6 +40,33 @@ abstract class QueryObject extends BaseQueryObject
 	}
 
 
+	/**
+	 * @return \Kdyby\Doctrine\EntityRepository
+	 */
+	public function getRepository()
+	{
+		return $this->repository;
+	}
+
+
+	/********************************* HELPERS *********************************/
+
+
+	/**
+	 * @param \Kdyby\Doctrine\QueryBuilder $qb
+	 * @param array $parameters
+	 * @return $this
+	 */
+	protected function addParameters(QueryBuilder $qb, array $parameters)
+	{
+		foreach ($parameters as $key => $value) {
+			$qb->setParameter($key, $value);
+		}
+
+		return $this;
+	}
+
+
 	/********************************* FILTERS MANIPULATION *********************************/
 
 

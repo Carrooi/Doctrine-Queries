@@ -9,10 +9,9 @@
 
 namespace CarrooiTests\Doctrine\Queries;
 
-use Carrooi\Doctrine\Queries\QueryObject;
+use CarrooiTests\Model\QueryMock;
 use Kdyby\Doctrine\Dql\Join;
 use Kdyby\Doctrine\QueryBuilder;
-use Kdyby\Persistence\Queryable;
 use Mockery;
 use Tester\Assert;
 use Tester\TestCase;
@@ -49,7 +48,7 @@ class QueryObjectTest extends TestCase
 
 	public function testAddFilter()
 	{
-		$query = new Query($this->repository);
+		$query = new QueryMock($this->repository);
 
 		$query->addFilter(function(QueryBuilder $qb) {
 			$qb->andWhere('id = :id')->setParameter('id', 5);
@@ -61,7 +60,7 @@ class QueryObjectTest extends TestCase
 
 	public function testAddSelectFilter()
 	{
-		$query = new Query($this->repository);
+		$query = new QueryMock($this->repository);
 
 		$query->addSelectFilter(function(QueryBuilder $qb) {
 			$qb->select('COUNT(a)');
@@ -73,7 +72,7 @@ class QueryObjectTest extends TestCase
 
 	public function testTrySelect()
 	{
-		$query = new Query($this->repository);
+		$query = new QueryMock($this->repository);
 
 		$query->trySelect('a');
 
@@ -83,7 +82,7 @@ class QueryObjectTest extends TestCase
 
 	public function testTrySelect_partial()
 	{
-		$query = new Query($this->repository);
+		$query = new QueryMock($this->repository);
 
 		$query->trySelect('a', ['name', 'title']);
 
@@ -93,7 +92,7 @@ class QueryObjectTest extends TestCase
 
 	public function testTrySelect_partial_moreCalls()
 	{
-		$query = new Query($this->repository);
+		$query = new QueryMock($this->repository);
 
 		$query->trySelect('a', ['name']);
 		$query->trySelect('a', ['title']);
@@ -104,7 +103,7 @@ class QueryObjectTest extends TestCase
 
 	public function testTryDistinctSelect()
 	{
-		$query = new Query($this->repository);
+		$query = new QueryMock($this->repository);
 
 		$query->tryDistinctSelect('a');
 
@@ -114,7 +113,7 @@ class QueryObjectTest extends TestCase
 
 	public function testTryDistinctSelect_partial()
 	{
-		$query = new Query($this->repository);
+		$query = new QueryMock($this->repository);
 
 		$query->tryDistinctSelect('a', ['name']);
 
@@ -124,7 +123,7 @@ class QueryObjectTest extends TestCase
 
 	public function testTryDistinctSelect_partial_moreCalls()
 	{
-		$query = new Query($this->repository);
+		$query = new QueryMock($this->repository);
 
 		$query->tryDistinctSelect('a', ['name']);
 		$query->tryDistinctSelect('a', ['title']);
@@ -135,7 +134,7 @@ class QueryObjectTest extends TestCase
 
 	public function testTryJoin()
 	{
-		$query = new Query($this->repository);
+		$query = new QueryMock($this->repository);
 
 		$query->tryJoin('a.user', 'u');
 
@@ -145,7 +144,7 @@ class QueryObjectTest extends TestCase
 
 	public function testTryJoin_moreCalls()
 	{
-		$query = new Query($this->repository);
+		$query = new QueryMock($this->repository);
 
 		$query->tryJoin('a.user', 'u');
 		$query->tryJoin('a.user', 'u');
@@ -156,7 +155,7 @@ class QueryObjectTest extends TestCase
 
 	public function testTryJoin_advanced()
 	{
-		$query = new Query($this->repository);
+		$query = new QueryMock($this->repository);
 
 		$query->tryJoin('App\User', 'u', Join::WITH, 'u = a.user');
 
@@ -166,68 +165,11 @@ class QueryObjectTest extends TestCase
 
 	public function testTryLeftJoin()
 	{
-		$query = new Query($this->repository);
+		$query = new QueryMock($this->repository);
 
 		$query->tryLeftJoin('a.user', 'u');
 
 		Assert::same('SELECT a FROM App\Entity a LEFT JOIN a.user u', $query->getQueryBuilder()->getDQL());
-	}
-
-}
-
-
-/**
- *
- * @author David Kudera
- */
-class Query extends QueryObject
-{
-
-
-	/** @var callable */
-	private $_doCreateQuery;
-
-
-	/**
-	 * @param callable $doCreateQuery
-	 */
-	public function setDoCreateQuery(callable $doCreateQuery)
-	{
-		$this->_doCreateQuery = $doCreateQuery;
-	}
-
-
-	/**
-	 * @param \Kdyby\Persistence\Queryable $repository
-	 * @return \Doctrine\ORM\Query|\Doctrine\ORM\QueryBuilder
-	 */
-	protected function doCreateQuery(Queryable $repository)
-	{
-		$qb = $repository->createQueryBuilder()
-			->select('a')->from('App\Entity', 'a');
-
-		if ($this->_doCreateQuery) {
-			call_user_func($this->_doCreateQuery, $qb);
-		} else {
-			$this->applyAllFilters($qb);
-		}
-
-		return $qb;
-	}
-
-
-	/**
-	 * @param string $name
-	 * @param array $args
-	 * @return mixed
-	 */
-	public function __call($name, $args)
-	{
-		if (method_exists($this, $name)) {
-			return call_user_func_array([$this, $name], $args);
-		} else {
-			return parent::__call($name, $args);
-		}
 	}
 
 }

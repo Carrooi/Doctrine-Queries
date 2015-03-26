@@ -130,6 +130,118 @@ class UserQuery extends Carrooi\Doctrine\Queries\QueryObject
 
 You can also use `tryLeftJoin` method.
 
+### Helpers
+
+* `$query->addParameters(QueryBuilder $qb, array $parameters)`: set parameters without overwriting the old ones
+
+### Nested trees searching
+
+If you are using eg. gedmo nested trees, you could also use `TNestedTreeQuery` trait for simple searching in tree.
+
+```php
+class UserQuery extends Carrooi\Doctrine\Queries\QueryObject
+{
+
+	use Carrooi\Doctrine\Queries\Tree\TNestedTreeQuery;
+	
+	public function byTree(array $entities)
+	{
+		// ... some joins
+		
+		$this->addFilter(function(QueryBuilder $qb) use ($entities) {
+			$condition = $this->createNestedTreeSearchCondition($entities, 'entityAlias');
+			
+			$qb->andWhere($condition->getCondition());
+            $query->addParameters($qb, $condition->getParameters());
+		});
+	}
+
+}
+```
+
+That example will find all entities in database with at least one entity from given array of entities, even they are 
+same, in some children entity or some parent entity.
+
+**Search by at least one entity (uses OR)** *default*
+
+```php
+use Carrooi\Doctrine\Queries\Tree\SearchType;
+
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_OR);
+```
+
+**Search by all entities (uses AND)**
+
+```php
+use Carrooi\Doctrine\Queries\Tree\SearchType;
+
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_AND);
+```
+
+**Search only for same, in parents and in children** *default*
+
+```php
+use Carrooi\Doctrine\Queries\Tree\SearchType;
+
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_OR, SearchType::SEARCH_EVERYWHERE);
+```
+
+**Search only for same**
+
+```php
+use Carrooi\Doctrine\Queries\Tree\SearchType;
+
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_OR, SearchType::SEARCH_FOR_SAME);
+```
+
+**Search only in parents**
+
+```php
+use Carrooi\Doctrine\Queries\Tree\SearchType;
+
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_OR, SearchType::SEARCH_IN_PARENTS);
+```
+
+**Search only in children**
+
+```php
+use Carrooi\Doctrine\Queries\Tree\SearchType;
+
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_OR, SearchType::SEARCH_IN_CHILDREN);
+```
+
+**Combined searching**
+
+```php
+use Carrooi\Doctrine\Queries\Tree\SearchType;
+
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_OR, SearchType::SEARCH_IN_PARENTS | SearchType::SEARCH_IN_CHILDREN);
+```
+
+**Custom column names**
+
+`TNestedTreeQuery` trait will use by default these column names:
+
+* `id`
+* `level`
+* `root`
+* `left`
+* `right`
+
+But if you need, you can use custom names:
+
+```php
+use Carrooi\Doctrine\Queries\Tree\SearchType;
+
+$query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_OR, SearchType::SEARCH_EVERYWHERE, [
+	'id' => 'id',
+	'level' => 'lvl',
+	'root' => 'root',
+	'left' => 'lft',
+	'right' => 'rgt',
+]);
+```
+
 ### Getting results
 
 * `getQueryBuilder()`
