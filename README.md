@@ -105,6 +105,27 @@ class UserQuery extends Carrooi\Doctrine\Queries\QueryObject
 }
 ```
 
+You can also use classic column selects without partials. That can be useful for example for array hydration.
+
+class UserQuery extends Carrooi\Doctrine\Queries\QueryObject
+{
+
+	public function selectNick()
+	{
+		$this->trySelect('u', [
+			'nick' => 'nickAlias',				// nickAlias will be name of result key
+		]);
+		return $this;
+	}
+	
+	public function selectEmail()
+	{
+		$this->trySelect('u', ['email']); 		// you can combine partial and classic column selects
+		return $this;
+	}
+
+}
+
 ### Joins
 
 Same problem like with selects is with joins. If you will try to join same relation many times, you will get error.

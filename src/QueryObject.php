@@ -130,13 +130,25 @@ abstract class QueryObject extends BaseQueryObject
 				if (empty($columns)) {
 					$selects[] = $distinct. $alias;
 				} else {
-					if (!in_array('id', $columns)) {
-						array_unshift($columns, 'id');
+					$partial = [];
+
+					foreach ($columns as $column => $columnAlias) {
+						if (is_int($column)) {
+							$partial[] = $columnAlias;
+						} else {
+							$selects[] = $distinct. $alias. '.'. $column. ' AS '. $columnAlias;
+						}
 					}
 
-					$columns = implode(',', $columns);
+					if (!empty($partial)) {
+						if (!in_array('id', $partial)) {
+							array_unshift($partial, 'id');
+						}
 
-					$selects[] = $distinct. 'PARTIAL '. $alias. '.{'. $columns. '}';
+						$partial = implode(',', $partial);
+
+						$selects[] = $distinct. 'PARTIAL '. $alias. '.{'. $partial. '}';
+					}
 				}
 			}
 

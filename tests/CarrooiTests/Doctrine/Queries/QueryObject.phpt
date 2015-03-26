@@ -80,6 +80,19 @@ class QueryObjectTest extends TestCase
 	}
 
 
+	public function testTrySelect_columns()
+	{
+		$query = new QueryMock($this->repository);
+
+		$query->trySelect('a', [
+			'name' => 'customName',
+			'title' => 'customTitle',
+		]);
+
+		Assert::same('SELECT a.name AS customName, a.title AS customTitle FROM App\Entity a', $query->getQueryBuilder()->getDQL());
+	}
+
+
 	public function testTrySelect_partial()
 	{
 		$query = new QueryMock($this->repository);
@@ -87,6 +100,19 @@ class QueryObjectTest extends TestCase
 		$query->trySelect('a', ['name', 'title']);
 
 		Assert::same('SELECT PARTIAL a.{id,name,title} FROM App\Entity a', $query->getQueryBuilder()->getDQL());
+	}
+
+
+	public function testTrySelect_columns_partial()
+	{
+		$query = new QueryMock($this->repository);
+
+		$query->trySelect('a', [
+			'name',
+			'title' => 'customTitle',
+		]);
+
+		Assert::same('SELECT a.title AS customTitle, PARTIAL a.{id,name} FROM App\Entity a', $query->getQueryBuilder()->getDQL());
 	}
 
 
