@@ -162,7 +162,7 @@ class UserQuery extends Carrooi\Doctrine\Queries\QueryObject
 That example will find all entities in database with at least one entity from given array of entities, even they are 
 same, in some children entity or some parent entity.
 
-**Search by at least one entity (uses OR)** *default*
+**Search by at least one entity (uses OR)** `default`
 
 ```php
 use Carrooi\Doctrine\Queries\Tree\SearchType;
@@ -178,7 +178,7 @@ use Carrooi\Doctrine\Queries\Tree\SearchType;
 $query->createNestedTreeSearchCondition($entities, 'entityAlias', SearchType::CONDITION_AND);
 ```
 
-**Search only for same, in parents and in children** *default*
+**Search only for same, in parents and in children** `default`
 
 ```php
 use Carrooi\Doctrine\Queries\Tree\SearchType;
