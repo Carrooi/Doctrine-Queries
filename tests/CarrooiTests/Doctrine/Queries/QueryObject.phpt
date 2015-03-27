@@ -116,6 +116,19 @@ class QueryObjectTest extends TestCase
 	}
 
 
+	public function testTrySelect_columns_partial_withAlias()
+	{
+		$query = new QueryMock($this->repository);
+
+		$query->trySelect('a', ['alias' => [
+			'name',
+			'title' => 'customTitle',
+		]]);
+
+		Assert::same('SELECT a.title AS customTitle, PARTIAL a.{id,name} AS alias FROM App\Entity a', $query->getQueryBuilder()->getDQL());
+	}
+
+
 	public function testTrySelect_partial_moreCalls()
 	{
 		$query = new QueryMock($this->repository);

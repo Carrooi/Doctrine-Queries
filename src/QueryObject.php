@@ -147,7 +147,7 @@ abstract class QueryObject extends BaseQueryObject
 
 						$partial = implode(',', $partial);
 
-						$selects[] = $distinct. 'PARTIAL '. $alias. '.{'. $partial. '}';
+						$selects[] = $distinct. 'PARTIAL '. $alias. '.{'. $partial. '}'. ($data['alias'] !== null ? ' AS '. $data['alias'] : '');
 					}
 				}
 			}
@@ -192,7 +192,14 @@ abstract class QueryObject extends BaseQueryObject
 			$this->selects[$alias] = [
 				'distinct' => $distinct,
 				'columns' => [],
+				'alias' => null,
 			];
+		}
+
+		// [resultAliasForPartialSelect => [column1, column2, ...]]
+		if (count($columns) === 1 && is_string($key = key($columns)) && is_array($columns[$key])) {
+			$this->selects[$alias]['alias'] = $key;
+			$columns = $columns[$key];
 		}
 
 		$this->selects[$alias]['columns'] = array_merge($this->selects[$alias]['columns'], $columns);
