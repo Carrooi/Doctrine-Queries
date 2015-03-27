@@ -90,6 +90,23 @@ class UserQuery extends Carrooi\Doctrine\Queries\QueryObject
 
 **DQL:** `SELECT PARTIAL u.{id,nick,email} FROM ...`
 
+With result alias:
+
+```php
+class UserQuery extends Carrooi\Doctrine\Queries\QueryObject
+{
+
+	public function selectNickAndEmail()
+	{
+		$this->trySelect('u', ['user' => ['nick', 'email']]);
+		return $this;
+	}
+
+}
+```
+
+**DQL:** `SELECT PARTIAL u.{id,nick,email} AS user FROM ...`
+
 Or with distinct:
 
 ```php
