@@ -295,6 +295,11 @@ $query->createNestedTreeSearchCondition($entities, 'entityAlias', null, null, [
 
 ## Changelog
 
+* 1.2.0
+	+ Better aliases in tree searching DQLs
+	+ Support for classic custom column selects (not just partials)
+	+ Add option to set result alias for partial selects
+
 * 1.1.0
 	+ Add field function for DQL
 	+ Add TNestedTreeQuery trait for searching in nested trees
