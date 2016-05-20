@@ -295,6 +295,9 @@ $query->createNestedTreeSearchCondition($entities, 'entityAlias', null, null, [
 
 ## Changelog
 
+* 1.2.1
+	+ Change dependencies
+
 * 1.2.0
 	+ Better aliases in tree searching DQLs
 	+ Support for classic custom column selects (not just partials)
